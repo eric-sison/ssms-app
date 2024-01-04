@@ -13,10 +13,12 @@ export const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(
         {...props}
         className={`${
           size === "small" ? "text-sm" : size === "large" ? "text-lg leading-7" : "leading-6"
-        } ${muted && "text-muted-foreground"} [&:not(:first-child)]:mt-5`}
+        } ${muted && "text-muted-foreground"}`}
       >
         {children}
       </p>
     );
   }
 );
+
+Paragraph.displayName = "Paragraph";
