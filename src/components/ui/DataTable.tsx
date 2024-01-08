@@ -5,36 +5,54 @@ import {
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/Table";
 import { DataTablePagination } from "./DataTablePagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDataTable } from "@/lib/dataTables";
 
 type DataTableProps<T> = {
+  name: string;
   columns: Array<ColumnDef<T, any>>;
   data: T[];
 };
 
-export function DataTable<T>({ columns, data }: DataTableProps<T>) {
+export function DataTable<T>({ columns, data, name }: DataTableProps<T>) {
+  const setTable = useDataTable((state) => state.setDataTables);
+  const removeTable = useDataTable((state) => state.removeDataTable);
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
+    onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
       rowSelection,
+      globalFilter,
     },
   });
+
+  useEffect(() => {
+    setTable({ name, dataTable: table });
+
+    return () => {
+      removeTable();
+    };
+  }, [name, removeTable, setTable, table]);
 
   return (
     <>
