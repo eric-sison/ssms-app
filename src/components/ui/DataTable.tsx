@@ -2,9 +2,12 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -12,21 +15,32 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/Table";
 import { DataTablePagination } from "./DataTablePagination";
-import { useEffect, useState } from "react";
-import { useDataTable } from "@/lib/dataTables";
+import { createContext, useEffect, useState } from "react";
+import { Input } from "./Input";
+import { DataTableToolbar } from "./DataTableToolbar";
 
 type DataTableProps<T> = {
-  name: string;
   columns: Array<ColumnDef<T, any>>;
   data: T[];
+  enableColumnVisibilityToggle?: boolean;
 };
 
-export function DataTable<T>({ columns, data, name }: DataTableProps<T>) {
-  const setTable = useDataTable((state) => state.setDataTables);
-  const removeTable = useDataTable((state) => state.removeDataTable);
+type ColumnVisibilityToggleContextState = {
+  enableColumnVisibilityToggle?: boolean;
+};
 
+export const ColumnVisibilityToggleContext = createContext<ColumnVisibilityToggleContextState>({
+  enableColumnVisibilityToggle: undefined,
+});
+
+export function DataTable<T>({
+  columns,
+  data,
+  enableColumnVisibilityToggle = true,
+}: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
@@ -36,68 +50,81 @@ export function DataTable<T>({ columns, data, name }: DataTableProps<T>) {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
+    onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
       rowSelection,
+      columnFilters,
       globalFilter,
     },
   });
 
-  useEffect(() => {
-    setTable({ name, dataTable: table });
-
-    return () => {
-      removeTable();
-    };
-  }, [name, removeTable, setTable, table]);
-
   return (
-    <>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+    <div className="space-y-4">
+      <ColumnVisibilityToggleContext.Provider value={{ enableColumnVisibilityToggle }}>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center relative w-96">
+            <Input
+              placeholder="Search from table..."
+              value={globalFilter ?? ""}
+              onChange={(event) => setGlobalFilter(event.target.value)}
+              className="min-w-96"
+            />
+          </div>
 
-      <div className="pt-4 pb-10">
-        <DataTablePagination table={table} />
+          <DataTableToolbar table={table} />
+        </div>
+      </ColumnVisibilityToggleContext.Provider>
+
+      <div>
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="pt-4 pb-10">
+          <DataTablePagination table={table} />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
