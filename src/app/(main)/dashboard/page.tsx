@@ -6,7 +6,7 @@ import { PageHeading } from "@/components/features/PageHeading";
 
 export default function Dashboard() {
   return (
-    <div className="h-full overflow-y-hidden space-y-10">
+    <div className="h-full space-y-10">
       <section className="flex justify-between">
         <PageHeading
           title="Dashboard"
