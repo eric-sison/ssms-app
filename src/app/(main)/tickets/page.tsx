@@ -1,5 +1,6 @@
 import { PageHeading } from "@/components/features/PageHeading";
 import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTable";
+import { Button } from "@/components/ui/Button";
 
 // TODO: remove this sample data
 const data: Array<Payment> = [
@@ -159,10 +160,16 @@ const data: Array<Payment> = [
 export default function Tickets() {
   return (
     <div className="h-full space-y-10">
-      <PageHeading
-        title="Tickets"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-      />
+      <section className="flex justify-between">
+        <PageHeading
+          title="Tickets"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        />
+
+        <div className="flex items-center gap-2">
+          <Button>Create Ticket</Button>
+        </div>
+      </section>
 
       <section>
         <TicketsDataTable data={data} />
