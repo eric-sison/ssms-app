@@ -1,19 +1,7 @@
-"use client";
-
 import { PageHeading } from "@/components/features/PageHeading";
-import { DataTable } from "@/components/ui/DataTable";
-import { DataTableColumnHeader } from "@/components/ui/DataTableHeader";
-import { DataTableSelectableTableHeader } from "@/components/ui/DataTableSelectableHeader";
-import { DataTableSelectableRow } from "@/components/ui/DataTableSelectableRow";
-import { ColumnDef } from "@tanstack/react-table";
+import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTable";
 
-type Payment = {
-  id: string;
-  amount: number;
-  status: string;
-  email: string;
-};
-
+// TODO: remove this sample data
 const data: Array<Payment> = [
   {
     id: "728ed52f1",
@@ -168,40 +156,6 @@ const data: Array<Payment> = [
   },
 ];
 
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "id",
-    header: ({ table }) => <DataTableSelectableTableHeader table={table} />,
-    cell: ({ row }) => <DataTableSelectableRow row={row} />,
-    enableColumnFilter: false,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "id",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Task ID" />,
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <span className="inline-flex items-center rounded-md capitalize border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">
-          {row.original.status}
-        </span>
-        <div className="max-w-[40rem] truncate">{row.original.email}</div>
-      </div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Amount" />,
-  },
-  {
-    accessorKey: "amount",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Amount" />,
-  },
-];
-
 export default function Tickets() {
   return (
     <div className="h-full space-y-10">
@@ -211,7 +165,7 @@ export default function Tickets() {
       />
 
       <section>
-        <DataTable data={data} columns={columns} />
+        <TicketsDataTable data={data} />
       </section>
     </div>
   );
