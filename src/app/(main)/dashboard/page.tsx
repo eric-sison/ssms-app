@@ -3,28 +3,38 @@ import { TicketStatusCard } from "@/components/features/TicketStatusCard";
 import { SVGProps } from "react";
 import { Button } from "@/components/ui/Button";
 import { PageHeading } from "@/components/features/PageHeading";
+import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
+import { PageContainer } from "@/components/features/PageContainer";
+
+const links: BreadCrumbsLink[] = [
+  { path: "/", label: "Home" },
+  { path: "/dashboard", label: "Dashboard" },
+];
 
 export default function Dashboard() {
   return (
-    <div className="h-full space-y-10">
-      <section className="flex justify-between">
-        <PageHeading
-          title="Dashboard"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        />
+    <>
+      <div className="space-y-7">
+        <BreadCrumbs links={links} />
+        <section className="flex justify-between">
+          <PageHeading
+            title="Dashboard"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
 
-        <div className="flex items-center gap-2">
-          <DatePickerWithRange />
-          <Button variant={"secondary"}>Search</Button>
-        </div>
-      </section>
+          <div className="flex items-center gap-2">
+            <DatePickerWithRange />
+            <Button variant={"secondary"}>Search</Button>
+          </div>
+        </section>
+      </div>
 
       <section className="flex items-center gap-5">
         <TicketStatusCard
           title="Pending"
           count={5}
           description="Unassigned tickets"
-          icon={<SolarStickerSquareBoldDuotone className="text-indigo-500" />}
+          icon={<SolarNotificationUnreadBoldDuotone className="text-indigo-500" />}
         />
         <TicketStatusCard
           title="Active"
@@ -50,27 +60,38 @@ export default function Dashboard() {
         <div className="border bg-secondary/40 rounded-lg col-span-3"></div>
         <div className="border bg-secondary/40 rounded-lg col-span-2"></div>
       </section> */}
-    </div>
+    </>
   );
 }
 
-function SolarStickerSquareBoldDuotone(props: SVGProps<SVGSVGElement>) {
+function SolarNotificationUnreadBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" {...props}>
-      <g fill="currentColor">
-        <path d="M22 15c-.584 0-1.076 0-1.5.008c-.928.016-1.528.069-2.045.237a5 5 0 0 0-3.21 3.21c-.168.517-.22 1.117-.237 2.045C15 20.924 15 21.416 15 22c.483 0 .954-.049 1.41-.142l.048-.01h.004l.038-.01a7.01 7.01 0 0 0 5.339-5.338c.105-.483.161-.985.161-1.5Z"></path>
-        <path
-          d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 1.128 0 2.122-.02 3c-.575 0-1.06 0-1.48.008c-.928.016-1.528.069-2.045.237a5 5 0 0 0-3.21 3.21c-.168.517-.22 1.117-.237 2.045c-.008.42-.008.905-.008 1.48c-.878.02-1.872.02-3 .02Z"
-          opacity=".5"
-        ></path>
-      </g>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12"
+        opacity=".5"
+      ></path>
+      <path fill="currentColor" d="M22 5a3 3 0 1 1-6 0a3 3 0 0 1 6 0"></path>
     </svg>
   );
 }
 
 function SolarBoltLinear(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <path
         fill="none"
         stroke="currentColor"
@@ -83,7 +104,13 @@ function SolarBoltLinear(props: SVGProps<SVGSVGElement>) {
 
 function SolarTicketBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <g fill="currentColor">
         <path
           fillRule="evenodd"
@@ -101,7 +128,13 @@ function SolarTicketBoldDuotone(props: SVGProps<SVGSVGElement>) {
 
 function SolarNotificationRemoveBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <g fill="currentColor">
         <path
           fillRule="evenodd"
