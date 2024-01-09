@@ -21,7 +21,7 @@ export default function Dashboard() {
 
       <section className="flex items-center gap-5">
         <TicketStatusCard
-          title="Open"
+          title="Pending"
           count={5}
           description="Unassigned tickets"
           icon={<SolarStickerSquareBoldDuotone className="text-indigo-500" />}

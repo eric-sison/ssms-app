@@ -162,12 +162,12 @@ export default function Tickets() {
     <div className="h-full space-y-10">
       <section className="flex justify-between">
         <PageHeading
-          title="Tickets"
+          title="Service Slips"
           subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
         />
 
         <div className="flex items-center gap-2">
-          <Button>Create Ticket</Button>
+          <Button variant={"secondary"}>Create Ticket</Button>
         </div>
       </section>
 
