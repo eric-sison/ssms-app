@@ -17,11 +17,12 @@ export const TicketStatusCard: FunctionComponent<TicketStatusCardProps> = ({
   return (
     <Card className="w-full bg-primary text-white dark:bg-secondary/40 shadow-xl shadow-gray-300/70 dark:shadow-none group">
       <CardHeader>
-        <section className="mb-4 flex items-center gap-2">
+        <section className="mb-4 flex items-center gap-4">
           {icon}
-          <p className="text-lg font-medium">{title}</p>
+          <p className="font-medium">{title}</p>
         </section>
-        <CardTitle className="text-5xl">{count}</CardTitle>
+
+        <CardTitle className="text-4xl">{count}</CardTitle>
         <CardDescription className="font-medium">{description}</CardDescription>
       </CardHeader>
     </Card>
