@@ -1,5 +1,6 @@
 import { PageHeading } from "@/components/features/PageHeading";
 import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTable";
+import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Button } from "@/components/ui/Button";
 
 // TODO: remove this sample data
@@ -157,23 +158,31 @@ const data: Array<Payment> = [
   },
 ];
 
+const links: BreadCrumbsLink[] = [
+  { path: "/", label: "Home" },
+  { path: "/tickets", label: "Tickets" },
+];
+
 export default function Tickets() {
   return (
-    <div className="h-full space-y-10">
-      <section className="flex justify-between">
-        <PageHeading
-          title="Service Slips"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        />
+    <>
+      <div className="space-y-7">
+        <BreadCrumbs links={links} />
 
-        <div className="flex items-center gap-2">
-          <Button variant={"secondary"}>Create Ticket</Button>
-        </div>
-      </section>
+        <section className="flex justify-between">
+          <PageHeading
+            title="Tickets"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+          />
+          <div className="flex items-center gap-2">
+            <Button variant={"secondary"}>Create Ticket</Button>
+          </div>
+        </section>
+      </div>
 
       <section>
         <TicketsDataTable data={data} />
       </section>
-    </div>
+    </>
   );
 }
