@@ -32,7 +32,7 @@ export function DataTableFacetedFilter<TData, TValue>({
 
   const sortedList = useMemo(
     () => Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column?.getFacetedUniqueValues()]
+    [column]
   );
 
   return (
