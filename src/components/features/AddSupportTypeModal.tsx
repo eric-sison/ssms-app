@@ -14,7 +14,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  useFormField,
 } from "../ui/Form";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
@@ -48,7 +47,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
         description="This will add a new support type"
       >
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
             <FormField
               control={form.control}
               name="name"
@@ -56,7 +55,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
                 return (
                   <FormItem>
                     <FormLabel>
-                      Support Name<span className="ml-1 text-rose-700">*</span>
+                      Display Name<span className="ml-1 text-rose-700">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Enter the name of support type..." {...field} />
@@ -84,6 +83,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
                     </FormLabel>
                     <FormControl>
                       <Textarea
+                        rows={5}
                         placeholder="Enter description for this support type..."
                         {...field}
                       />
