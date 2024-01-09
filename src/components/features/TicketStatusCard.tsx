@@ -22,10 +22,8 @@ export const TicketStatusCard: FunctionComponent<TicketStatusCardProps> = ({
           <p className="text-lg font-medium">{title}</p>
         </section>
         <CardTitle className="text-5xl">{count}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="font-medium">{description}</CardDescription>
       </CardHeader>
     </Card>
   );
 };
-
-// bg-secondary/40
