@@ -72,49 +72,53 @@ export function DataTableFacetedFilter<TData, TValue>({
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder={title} />
+          <CommandInput disabled={sortedList.length === 0} placeholder={title} />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
-              {sortedList.map((list, index) => {
-                const isSelected = selectedValues.has(list);
-                return (
-                  <CommandItem
-                    key={index}
-                    onSelect={() => {
-                      console.log(isSelected);
+              {sortedList.length === 0 ? (
+                <p className="p-2 text-sm text-muted-foreground">No data</p>
+              ) : (
+                sortedList.map((list, index) => {
+                  const isSelected = selectedValues.has(list);
+                  return (
+                    <CommandItem
+                      key={index}
+                      onSelect={() => {
+                        console.log(isSelected);
 
-                      if (isSelected) {
-                        selectedValues.delete(list);
-                      } else {
-                        selectedValues.add(list);
-                      }
+                        if (isSelected) {
+                          selectedValues.delete(list);
+                        } else {
+                          selectedValues.add(list);
+                        }
 
-                      const filterValues = Array.from(selectedValues);
+                        const filterValues = Array.from(selectedValues);
 
-                      column?.setFilterValue(filterValues.length ? filterValues : undefined);
-                    }}
-                  >
-                    <div
-                      className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
-                      )}
+                        column?.setFilterValue(filterValues.length ? filterValues : undefined);
+                      }}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} />
-                    </div>
-                    {/* {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />} */}
-                    <span>{list}</span>
-                    {facets?.get(list) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(list)}
-                      </span>
-                    )}
-                  </CommandItem>
-                );
-              })}
+                      <div
+                        className={cn(
+                          "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                          isSelected
+                            ? "bg-primary text-primary-foreground"
+                            : "opacity-50 [&_svg]:invisible"
+                        )}
+                      >
+                        <CheckIcon className={cn("h-4 w-4")} />
+                      </div>
+                      {/* {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />} */}
+                      <span>{list}</span>
+                      {facets?.get(list) && (
+                        <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+                          {facets.get(list)}
+                        </span>
+                      )}
+                    </CommandItem>
+                  );
+                })
+              )}
             </CommandGroup>
             {selectedValues.size > 0 && (
               <>
