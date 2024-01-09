@@ -23,6 +23,7 @@ const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <DataTableSelectableRow row={row} />,
     enableColumnFilter: false,
     enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "id",
@@ -41,6 +42,7 @@ const columns: ColumnDef<Payment>[] = [
       </div>
     ),
     enableColumnFilter: false,
+    enableHiding: false,
   },
   {
     accessorKey: "status",
@@ -72,7 +74,7 @@ type TicketsDataTableProps = {
 export const TicketsDataTable: FunctionComponent<TicketsDataTableProps> = ({ data }) => {
   return (
     <>
-      <DataTable data={data} columns={columns} enableColumnVisibilityToggle={false} />
+      <DataTable data={data} columns={columns} />
     </>
   );
 };
