@@ -13,3 +13,5 @@ export const Code = forwardRef<HTMLElement, Omit<HTMLAttributes<HTMLElement>, "c
     );
   }
 );
+
+Code.displayName = "Code";

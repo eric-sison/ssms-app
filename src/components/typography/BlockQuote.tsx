@@ -10,3 +10,5 @@ export const BlockQuote = forwardRef<
     </blockquote>
   );
 });
+
+BlockQuote.displayName = "BlockQuote";

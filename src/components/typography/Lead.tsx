@@ -10,3 +10,5 @@ export const Lead = forwardRef<
     </p>
   );
 });
+
+Lead.displayName = "Lead";
