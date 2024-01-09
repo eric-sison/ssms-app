@@ -1,57 +1,87 @@
 import { FunctionComponent, SVGProps } from "react";
 import { SidebarItem } from "./SidebarItem";
-import { Heading } from "../typography/Heading";
-import { Paragraph } from "../typography/Paragraph";
+import { UserMenu } from "../features/UserMenu";
+import { Separator } from "../ui/Separator";
+import { SidebarMenuTitle } from "./SidebarMenuTitle";
 
 export const Sidebar: FunctionComponent = () => {
   return (
-    <aside className="h-full border-r w-[18rem] shrink-0 p-2 space-y-5">
-      <div className="py-2 px-3 mt-7 space-y-2">
-        {/* <div className="flex items-center gap-2">
-          <SolarScreencast2BoldDuotone className="text-indigo-700" />
-          <Heading>SSMS</Heading>
-        </div>
-        <Paragraph size="small" muted>
-          Service Slip Management System
-        </Paragraph> */}
+    <aside className="h-full border-r w-64 shrink-0 space-y-10">
+      <div className="px-4 mt-7">
+        <UserMenu />
       </div>
 
-      <ul className="space-y-1">
-        <SidebarItem
-          targetPath="/dashboard"
-          icon={<SolarChartOutline />}
-          label="Dashboard"
-          notifCount={undefined}
-        />
+      {/* <Separator /> */}
 
-        <SidebarItem
-          targetPath="/tickets"
-          icon={<SolarTicketLinear />}
-          label="Tickets"
-          notifCount={18}
-        />
+      <div className="space-y-7">
+        <ul className="space-y-1 px-2">
+          <SidebarItem
+            targetPath="/dashboard"
+            icon={<SolarChartOutline />}
+            label="Dashboard"
+            notifCount={undefined}
+          />
 
-        <SidebarItem
-          targetPath="/reports"
-          icon={<SolarDocumentLinear />}
-          label="Reports"
-          notifCount={undefined}
-        />
+          <SidebarItem
+            targetPath="/reports"
+            icon={<SolarDocumentLinear />}
+            label="Reports"
+            notifCount={undefined}
+          />
 
-        <SidebarItem
-          targetPath="/profile"
-          icon={<SolarUserCheckBroken />}
-          label="Profile"
-          notifCount={undefined}
-        />
+          <SidebarItem
+            targetPath="/tickets"
+            icon={<SolarTicketLinear />}
+            label="Service Slips"
+            notifCount={18}
+          />
 
-        <SidebarItem
-          targetPath="/settings"
-          icon={<SolarTuning2Linear />}
-          label="Settings"
-          notifCount={undefined}
-        />
-      </ul>
+          <SidebarItem
+            targetPath="/profile"
+            icon={<SolarUserCheckBroken />}
+            label="Profile"
+            notifCount={undefined}
+          />
+
+          <SidebarItem
+            targetPath="/settings"
+            icon={<SolarTuning2Linear />}
+            label="Settings"
+            notifCount={undefined}
+          />
+        </ul>
+
+        <div className="px-4">
+          <Separator className="opacity-70" />
+        </div>
+
+        <ul className="space-y-1 px-2">
+          <div className="pl-4 pb-2">
+            <SidebarMenuTitle title="Manage" />
+          </div>
+
+          <SidebarItem
+            targetPath="/support-types"
+            icon={<SolarHandShakeBold className="text-amber-400" />}
+            label="Support Types"
+            notifCount={undefined}
+          />
+
+          <SidebarItem
+            targetPath="/categories"
+            icon={<SolarFolderWithFilesBold className="text-indigo-500" />}
+            label="Categories"
+            notifCount={undefined}
+          />
+
+          <SidebarItem
+            targetPath="/sub-categories"
+            icon={<SolarFileSendBold className="text-rose-500" />}
+            label="Sub-categories"
+            notifCount={undefined}
+          />
+        </ul>
+      </div>
     </aside>
   );
 };
@@ -154,21 +184,60 @@ export function SolarTuning2Linear(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function SolarScreencast2BoldDuotone(props: SVGProps<SVGSVGElement>) {
+function SolarHandShakeBold(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="2.5em"
-      height="2.5em"
+      width="1.25em"
+      height="1.25em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M4.414 17.859a.75.75 0 0 1 1.025.27c.827 1.418 2.091 2.49 3.65 3.186a.75.75 0 0 1-.611 1.37c-1.812-.809-3.331-2.08-4.334-3.8a.75.75 0 0 1 .27-1.026ZM18.906 3.922c-1.014-1.036-2.46-1.417-3.876-1.015a.75.75 0 0 1-.41-1.442c1.938-.552 3.955-.025 5.357 1.407a.75.75 0 0 1-1.071 1.05Zm-7.716-.614c-.214-.367-.838-.59-1.471-.227c-.632.36-.743.997-.532 1.357l2.525 4.332a.75.75 0 0 1-1.296.755L7.05 3.75c-.214-.367-.838-.59-1.472-.227c-.631.36-.742.997-.532 1.357l3.789 6.497a.75.75 0 1 1-1.296.756L5.854 9.245c-.214-.367-.838-.59-1.471-.227c-.632.36-.743.996-.532 1.357l3.788 6.497c1.609 2.759 5.58 3.654 8.946 1.73c3.365-1.923 4.561-5.764 2.956-8.517l-2.526-4.331c-.214-.367-.838-.59-1.471-.228c-.632.361-.743.997-.532 1.358l1.683 2.887a.75.75 0 0 1-.275 1.03c-1.543.88-2.016 2.585-1.34 3.743a.75.75 0 1 1-1.296.756c-.913-1.565-.544-3.45.635-4.782c.33-.372.442-.914.192-1.344l-3.42-5.866Z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+}
+
+function SolarFolderWithFilesBold(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.25em"
+      height="1.25em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M2.07 5.258C2 5.626 2 6.068 2 6.95V14c0 3.771 0 5.657 1.172 6.828C4.343 22 6.229 22 10 22h4c3.771 0 5.657 0 6.828-1.172C22 19.657 22 17.771 22 14v-2.202c0-2.632 0-3.949-.77-4.804a2.984 2.984 0 0 0-.224-.225C20.151 6 18.834 6 16.202 6h-.374c-1.153 0-1.73 0-2.268-.153a4 4 0 0 1-.848-.352C12.224 5.224 11.816 4.815 11 4l-.55-.55c-.274-.274-.41-.41-.554-.53a4 4 0 0 0-2.18-.903C7.53 2 7.336 2 6.95 2c-.883 0-1.324 0-1.692.07A4 4 0 0 0 2.07 5.257ZM16.282 3c.366 0 .55 0 .703.02c1.018.14 1.828.943 2.014 1.98a4.803 4.803 0 0 0-.461-.081c-.64-.084-1.448-.084-2.45-.084h-.334c-.942 0-1.3-.005-1.625-.101a2.512 2.512 0 0 1-.542-.233c-.296-.17-.552-.428-1.218-1.118L12 3h4.284ZM13 9.25a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5h-5Z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+}
+
+function SolarFileSendBold(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.25em"
+      height="1.25em"
       viewBox="0 0 24 24"
       {...props}
     >
       <g fill="currentColor">
+        <path d="m19.352 7.617l-3.96-3.563c-1.127-1.015-1.69-1.523-2.383-1.788L13 5c0 2.357 0 3.536.732 4.268C14.464 10 15.643 10 18 10h3.58c-.362-.704-1.012-1.288-2.228-2.383Z"></path>
         <path
-          d="M14 3h-4C6.229 3 4.343 3 3.172 4.172C2 5.343 2 7.229 2 11c0 3.771 0 5.657 1.172 6.828C4.343 19 6.229 19 10 19h4c3.771 0 5.657 0 6.828-1.172C22 16.657 22 14.771 22 11c0-3.771 0-5.657-1.172-6.828C19.657 3 17.771 3 14 3Z"
-          opacity=".5"
+          fillRule="evenodd"
+          d="M10 22h4c3.771 0 5.657 0 6.828-1.172C22 19.657 22 17.771 22 14v-.437c0-.873 0-1.529-.043-2.063h-4.052c-1.097 0-2.067 0-2.848-.105c-.847-.114-1.694-.375-2.385-1.066c-.692-.692-.953-1.539-1.067-2.386c-.105-.781-.105-1.75-.105-2.848l.01-2.834c0-.083.007-.164.02-.244C11.121 2 10.636 2 10.03 2C6.239 2 4.343 2 3.172 3.172C2 4.343 2 6.229 2 10v4c0 3.771 0 5.657 1.172 6.828C4.343 22 6.229 22 10 22Zm-.987-9.047a.75.75 0 0 0-1.026 0l-2 1.875a.75.75 0 0 0 1.026 1.094l.737-.69V18.5a.75.75 0 0 0 1.5 0v-3.269l.737.691a.75.75 0 0 0 1.026-1.094l-2-1.875Z"
+          clipRule="evenodd"
         ></path>
-        <path d="M9.95 16.05c.93-.93 1.396-1.396 1.97-1.427c.053-.002.106-.002.159 0c.574.03 1.04.496 1.971 1.427c2.026 2.026 3.039 3.039 2.755 3.913a1.499 1.499 0 0 1-.09.218C16.297 21 14.865 21 12 21c-2.865 0-4.298 0-4.715-.819a1.496 1.496 0 0 1-.09-.218c-.284-.874.729-1.887 2.755-3.913Z"></path>
       </g>
     </svg>
   );

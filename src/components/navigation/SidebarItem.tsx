@@ -25,8 +25,8 @@ export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
       href={targetPath}
       role="button"
       className={`${
-        path === targetPath ? "bg-primary text-white dark:bg-secondary" : ""
-      } flex items-center justify-between px-4 py-2 rounded-md hover:text-white  hover:bg-primary/95 dark:hover:bg-secondary/95`}
+        path === targetPath ? "bg-secondary text-primary" : "text-primary/80"
+      } flex items-center justify-between px-4 py-2 rounded-md hover:bg-secondary`}
     >
       <section className="flex items-center gap-3">
         {icon}
