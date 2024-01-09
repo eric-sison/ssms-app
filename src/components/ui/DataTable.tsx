@@ -23,6 +23,8 @@ type DataTableProps<T> = {
   columns: Array<ColumnDef<T, any>>;
   data: T[];
   enableColumnVisibilityToggle?: boolean;
+  enableGlobalFilter?: boolean;
+  enablePagination?: boolean;
 };
 
 type ColumnVisibilityToggleContextState = {
@@ -37,6 +39,8 @@ export function DataTable<T>({
   columns,
   data,
   enableColumnVisibilityToggle = true,
+  enableGlobalFilter = true,
+  enablePagination = true,
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -68,14 +72,16 @@ export function DataTable<T>({
     <div className="space-y-4">
       <ColumnVisibilityToggleContext.Provider value={{ enableColumnVisibilityToggle }}>
         <div className="flex items-center gap-2">
-          <div className="flex items-center relative w-96">
-            <Input
-              placeholder="Search from table..."
-              value={globalFilter ?? ""}
-              onChange={(event) => setGlobalFilter(event.target.value)}
-              className="min-w-96"
-            />
-          </div>
+          {enableGlobalFilter && (
+            <div className="flex items-center relative w-96">
+              <Input
+                placeholder="Search from table..."
+                value={globalFilter ?? ""}
+                onChange={(event) => setGlobalFilter(event.target.value)}
+                className="min-w-96"
+              />
+            </div>
+          )}
 
           <DataTableToolbar table={table} />
         </div>
@@ -121,9 +127,11 @@ export function DataTable<T>({
           </Table>
         </div>
 
-        <div className="pt-4 pb-10">
-          <DataTablePagination table={table} />
-        </div>
+        {enablePagination && (
+          <div className="pt-4 pb-10">
+            <DataTablePagination table={table} />
+          </div>
+        )}
       </div>
     </div>
   );
