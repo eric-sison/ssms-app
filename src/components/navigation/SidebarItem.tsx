@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { FunctionComponent } from "react";
-import { Paragraph } from "../typography/Paragraph";
+import { FunctionComponent, MouseEvent } from "react";
 import { usePathname } from "next/navigation";
+import { NotificationsSheet } from "../features/NotificationsSheet";
 
 type SidebarItemProps = {
   targetPath: string;
   icon: JSX.Element;
   label: string;
   notifCount?: number;
+  type?: "route" | "modal";
+  onModalOpen?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
@@ -17,10 +19,12 @@ export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
   icon,
   label,
   notifCount,
+  type = "route",
+  onModalOpen,
 }) => {
   const path = usePathname();
 
-  return (
+  return type === "route" ? (
     <Link
       href={targetPath}
       role="button"
@@ -30,10 +34,18 @@ export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
     >
       <section className="flex items-center gap-3">
         {icon}
-        <p className="font-medium">{label}</p>
+        <p className="text-sm">{label}</p>
       </section>
 
-      {notifCount && <p className="text-sm font-medium">{notifCount}</p>}
+      {notifCount && <p className="text-xs font-medium">{notifCount}</p>}
     </Link>
+  ) : (
+    <NotificationsSheet
+      // @ts-ignore
+      onModalOpen={onModalOpen}
+      icon={icon}
+      label={label}
+      notifCount={notifCount}
+    />
   );
 };
