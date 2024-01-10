@@ -6,7 +6,7 @@ export default function MainPageLayout({ children }: LayoutProps) {
   return (
     <div className="flex h-full">
       <Sidebar />
-      <main className="h-full w-full p-10 overflow-y-auto">
+      <main className="h-full w-full overflow-y-auto">
         <PageContainer>{children}</PageContainer>
       </main>
     </div>
