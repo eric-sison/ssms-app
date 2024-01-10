@@ -10,12 +10,20 @@ export const SettingsDebug: FunctionComponent = () => {
   const showDevTools = useDevToolStore((state) => state.setShowDevTools);
 
   return (
-    <div className="space-x-5">
-      <Button onClick={() => setTheme("light")}>Light</Button>
-      <Button onClick={() => setTheme("dark")}>Dark</Button>
+    <div className="space-x-2">
+      <Button variant="secondary" onClick={() => setTheme("light")}>
+        Light
+      </Button>
+      <Button variant="secondary" onClick={() => setTheme("dark")}>
+        Dark
+      </Button>
 
-      <Button onClick={() => showDevTools(true)}>Show Query Provider</Button>
-      <Button onClick={() => showDevTools(false)}>Hide Query Provider</Button>
+      <Button variant="secondary" onClick={() => showDevTools(true)}>
+        Show Query Provider
+      </Button>
+      <Button variant="secondary" onClick={() => showDevTools(false)}>
+        Hide Query Provider
+      </Button>
     </div>
   );
 };
