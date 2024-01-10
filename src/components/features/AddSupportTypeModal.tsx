@@ -43,7 +43,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
       <Modal
         open={open}
         onOpenChange={setOpen}
-        title="Create Support Type"
+        title="Add New"
         description="This will add a new support type"
       >
         <Form {...form}>
@@ -90,7 +90,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
                     </FormControl>
                     {!fieldState.error ? (
                       <FormDescription>
-                        Please include a description relevant to this type of support
+                        Please include a description relevant to this type of support.
                       </FormDescription>
                     ) : (
                       <FormMessage />
