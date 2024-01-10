@@ -33,14 +33,14 @@ export const NotificationsSheet: FunctionComponent<NotificationsSheetProps> = ({
       <SheetTrigger asChild>
         <button
           onClick={(event) => onModalOpen?.(event)}
-          className="w-full flex items-center justify-between px-4 py-2 rounded-md text-primary/80 hover:bg-secondary"
+          className="w-full flex items-center justify-between px-4 py-2 rounded-md text-primary font-medium hover:bg-secondary"
         >
           <section className="flex items-center gap-3">
             {icon}
             <p className="text-sm">{label}</p>
           </section>
 
-          {notifCount && <p className="text-xs font-medium">{notifCount}</p>}
+          {notifCount && <p className="text-xs font-bold text-red-500">{notifCount}</p>}
         </button>
       </SheetTrigger>
       <SheetContent>
