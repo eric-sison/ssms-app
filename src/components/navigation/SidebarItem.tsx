@@ -10,8 +10,6 @@ type SidebarItemProps = {
   icon: JSX.Element;
   label: string;
   notifCount?: number;
-  type?: "route" | "modal";
-  onModalOpen?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
@@ -19,33 +17,23 @@ export const SidebarItem: FunctionComponent<SidebarItemProps> = ({
   icon,
   label,
   notifCount,
-  type = "route",
-  onModalOpen,
 }) => {
   const path = usePathname();
 
-  return type === "route" ? (
+  return (
     <Link
       href={targetPath}
       role="button"
       className={`${
-        path === targetPath ? "bg-secondary text-primary" : "text-primary/80"
-      } flex items-center justify-between px-4 py-2 rounded-md hover:bg-secondary`}
+        path === targetPath ? "bg-secondary text-primary" : ""
+      } flex items-center justify-between px-4 py-2 rounded-md hover:bg-secondary font-medium`}
     >
       <section className="flex items-center gap-3">
         {icon}
         <p className="text-sm">{label}</p>
       </section>
 
-      {notifCount && <p className="text-xs font-medium">{notifCount}</p>}
+      {notifCount && <p className="text-xs text-red-600 font-bold">{notifCount}</p>}
     </Link>
-  ) : (
-    <NotificationsSheet
-      // @ts-ignore
-      onModalOpen={onModalOpen}
-      icon={icon}
-      label={label}
-      notifCount={notifCount}
-    />
   );
 };
