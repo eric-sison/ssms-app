@@ -6,6 +6,8 @@ type SidebarMenuTitleProps = {
 
 export const SidebarMenuTitle: FunctionComponent<SidebarMenuTitleProps> = ({ title }) => {
   return (
-    <span className="text-xs font-bold tracking-wider text-primary/60 uppercase">{title}</span>
+    <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
+      {title}
+    </span>
   );
 };
