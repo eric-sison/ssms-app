@@ -3,6 +3,11 @@ import { SupportTypesDataTable } from "@/components/features/SupportTypesDataTab
 import { AddSupportTypeModal } from "@/components/features/AddSupportTypeModal";
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Hammer } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Support Types",
+};
 
 //TODO: remove this sample data
 export type SupportType = {

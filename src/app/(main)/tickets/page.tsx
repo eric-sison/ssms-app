@@ -3,6 +3,11 @@ import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTabl
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Button } from "@/components/ui/Button";
 import { Tags } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tickets",
+};
 
 // TODO: remove this sample data
 const data: Array<Payment> = [

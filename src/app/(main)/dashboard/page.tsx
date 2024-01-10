@@ -1,19 +1,14 @@
 import { DatePickerWithRange } from "@/components/features/DatePicker";
 import { TicketStatusCard } from "@/components/features/TicketStatusCard";
-import { SVGProps } from "react";
 import { Button } from "@/components/ui/Button";
 import { PageHeading } from "@/components/features/PageHeading";
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
-import {
-  Activity,
-  CalendarClock,
-  Clock,
-  FileCheck2,
-  FileClock,
-  FilePieChart,
-  FileX2,
-  TimerReset,
-} from "lucide-react";
+import { Activity, Clock, FileCheck2, FilePieChart, FileX2 } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 
 const links: BreadCrumbsLink[] = [
   { path: "/", label: "Home" },
