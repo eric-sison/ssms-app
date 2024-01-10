@@ -1,20 +1,17 @@
-"use client";
-
 import { FunctionComponent } from "react";
 import { SidebarItem } from "./SidebarItem";
 import { UserMenu } from "../features/UserMenu";
 import { Separator } from "../ui/Separator";
 import { SidebarMenuTitle } from "./SidebarMenuTitle";
 import {
-  FileInput,
-  FileClock,
   FileStack,
   FilePieChart,
   FileSignature,
   Tags,
   UserCog,
   Wrench,
-  BellDot,
+  Hammer,
+  FolderSymlink,
 } from "lucide-react";
 
 export const Sidebar: FunctionComponent = () => {
@@ -24,10 +21,12 @@ export const Sidebar: FunctionComponent = () => {
         <UserMenu />
       </div>
 
-      {/* <Separator /> */}
-
       <div className="space-y-7">
         <ul className="space-y-1 px-2">
+          <div className="pl-4 pb-2">
+            <SidebarMenuTitle title="Administration" />
+          </div>
+
           <SidebarItem
             targetPath="/dashboard"
             icon={<FilePieChart className="w-5 h-5" />}
@@ -46,16 +45,7 @@ export const Sidebar: FunctionComponent = () => {
             targetPath="/tickets"
             icon={<Tags className="w-5 h-5" />}
             label="Tickets"
-            notifCount={18}
-          />
-
-          <SidebarItem
-            targetPath="#"
-            type="modal"
-            onModalOpen={() => console.log("open sheets")}
-            icon={<BellDot className="w-5 h-5" />}
-            label="Notifications"
-            notifCount={7}
+            notifCount={undefined}
           />
 
           <SidebarItem
@@ -84,14 +74,14 @@ export const Sidebar: FunctionComponent = () => {
 
           <SidebarItem
             targetPath="/support-types"
-            icon={<FileClock className="w-5 h-5" />}
+            icon={<Hammer className="w-5 h-5" />}
             label="Support Types"
             notifCount={undefined}
           />
 
           <SidebarItem
             targetPath="/categories"
-            icon={<FileInput className="w-5 h-5" />}
+            icon={<FolderSymlink className="w-5 h-5" />}
             label="Categories"
             notifCount={undefined}
           />
