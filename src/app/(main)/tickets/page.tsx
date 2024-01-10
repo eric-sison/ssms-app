@@ -2,6 +2,7 @@ import { PageHeading } from "@/components/features/PageHeading";
 import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTable";
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Button } from "@/components/ui/Button";
+import { Tags } from "lucide-react";
 
 // TODO: remove this sample data
 const data: Array<Payment> = [
@@ -172,6 +173,7 @@ export default function Tickets() {
         <section className="flex justify-between">
           <PageHeading
             title="Tickets"
+            icon={<Tags />}
             subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
           />
           <div className="flex items-center gap-2">
