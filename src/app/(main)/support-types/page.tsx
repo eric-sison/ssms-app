@@ -1,9 +1,10 @@
-import { PageHeading } from "@/components/features/PageHeading";
 import { SupportTypesDataTable } from "@/components/features/SupportTypesDataTable";
 import { AddSupportTypeModal } from "@/components/features/AddSupportTypeModal";
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Hammer } from "lucide-react";
 import { Metadata } from "next";
+import { PageHead } from "@/components/features/PageHead";
+import { PageBody } from "@/components/features/PageBody";
 
 export const metadata: Metadata = {
   title: "Support Types",
@@ -46,25 +47,20 @@ const links: BreadCrumbsLink[] = [
 export default function SupportTypes() {
   return (
     <>
-      <div className="space-y-7">
-        <BreadCrumbs links={links} />
-        <section className="flex justify-between">
-          <PageHeading
-            title="Support Types"
-            icon={<Hammer />}
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
+      <PageHead
+        breadCrumbsLinks={links}
+        title="Support Types"
+        icon={<Hammer />}
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+      >
+        <div className="flex items-center gap-2">
+          <AddSupportTypeModal />
+        </div>
+      </PageHead>
 
-          <div className="flex items-center gap-2">
-            {/* <Button variant={"secondary"}>Add New</Button> */}
-            <AddSupportTypeModal />
-          </div>
-        </section>
-      </div>
-
-      <section>
+      <PageBody>
         <SupportTypesDataTable data={data} />
-      </section>
+      </PageBody>
     </>
   );
 }

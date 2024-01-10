@@ -1,10 +1,11 @@
 import { DatePickerWithRange } from "@/components/features/DatePicker";
 import { TicketStatusCard } from "@/components/features/TicketStatusCard";
 import { Button } from "@/components/ui/Button";
-import { PageHeading } from "@/components/features/PageHeading";
 import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Activity, Clock, FileCheck2, FilePieChart, FileX2 } from "lucide-react";
 import { Metadata } from "next";
+import { PageHead } from "@/components/features/PageHead";
+import { PageBody } from "@/components/features/PageBody";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -18,23 +19,19 @@ const links: BreadCrumbsLink[] = [
 export default function Dashboard() {
   return (
     <>
-      <div className="space-y-7">
-        <BreadCrumbs links={links} />
-        <section className="flex justify-between">
-          <PageHeading
-            title="Dashboard"
-            icon={<FilePieChart />}
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
+      <PageHead
+        breadCrumbsLinks={links}
+        title="Dashboard"
+        icon={<FilePieChart />}
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+      >
+        <div className="flex items-center gap-2">
+          <DatePickerWithRange />
+          <Button variant={"secondary"}>Search</Button>
+        </div>
+      </PageHead>
 
-          <div className="flex items-center gap-2">
-            <DatePickerWithRange />
-            <Button variant={"secondary"}>Search</Button>
-          </div>
-        </section>
-      </div>
-
-      <section className="flex items-center gap-5">
+      <PageBody className="flex items-center gap-5">
         <TicketStatusCard
           title="Pending"
           count={5}
@@ -59,7 +56,7 @@ export default function Dashboard() {
           description="Cancelled tickets"
           icon={<FileX2 className="text-rose-500 w-7 h-7" />}
         />
-      </section>
+      </PageBody>
 
       {/* <section className="h-[calc(100%-20rem)] grid grid-cols-5 gap-5">
         <div className="border bg-secondary/40 rounded-lg col-span-3"></div>

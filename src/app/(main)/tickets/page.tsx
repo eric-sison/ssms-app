@@ -1,6 +1,7 @@
-import { PageHeading } from "@/components/features/PageHeading";
+import { PageBody } from "@/components/features/PageBody";
+import { PageHead } from "@/components/features/PageHead";
 import { Payment, TicketsDataTable } from "@/components/features/TicketsDataTable";
-import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
+import { BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Button } from "@/components/ui/Button";
 import { Tags } from "lucide-react";
 import { Metadata } from "next";
@@ -172,24 +173,20 @@ const links: BreadCrumbsLink[] = [
 export default function Tickets() {
   return (
     <>
-      <div className="space-y-7">
-        <BreadCrumbs links={links} />
+      <PageHead
+        breadCrumbsLinks={links}
+        title="Tickets"
+        icon={<Tags />}
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+      >
+        <div className="flex items-center gap-2">
+          <Button variant={"secondary"}>Create Ticket</Button>
+        </div>
+      </PageHead>
 
-        <section className="flex justify-between">
-          <PageHeading
-            title="Tickets"
-            icon={<Tags />}
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          />
-          <div className="flex items-center gap-2">
-            <Button variant={"secondary"}>Create Ticket</Button>
-          </div>
-        </section>
-      </div>
-
-      <section>
+      <PageBody>
         <TicketsDataTable data={data} />
-      </section>
+      </PageBody>
     </>
   );
 }
