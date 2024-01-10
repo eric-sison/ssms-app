@@ -17,13 +17,13 @@ import {
 export const Sidebar: FunctionComponent = () => {
   return (
     <aside className="h-full border-r w-64 shrink-0 space-y-10">
-      <div className="px-4 mt-7">
+      <div className="px-5 mt-7">
         <UserMenu />
       </div>
 
       <div className="space-y-7">
         <ul className="space-y-1 px-2">
-          <div className="pl-4 pb-2">
+          <div className="pl-4 pb-1">
             <SidebarMenuTitle title="Administration" />
           </div>
 
@@ -68,7 +68,7 @@ export const Sidebar: FunctionComponent = () => {
         </div>
 
         <ul className="space-y-1 px-2">
-          <div className="pl-4 pb-2">
+          <div className="pl-4 pb-1">
             <SidebarMenuTitle title="Manage" />
           </div>
 
@@ -89,7 +89,7 @@ export const Sidebar: FunctionComponent = () => {
           <SidebarItem
             targetPath="/sub-categories"
             icon={<FileStack className="w-5 h-5" />}
-            label="Sub-categories"
+            label="Sub Categories"
             notifCount={undefined}
           />
         </ul>
