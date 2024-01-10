@@ -19,11 +19,11 @@ export const TicketStatusCard: FunctionComponent<TicketStatusCardProps> = ({
       <CardHeader>
         <section className="mb-4 flex items-center gap-4">
           {icon}
-          <p className="font-medium">{title}</p>
+          <p className="font-medium text-lg">{title}</p>
         </section>
 
         <CardTitle className="text-4xl">{count}</CardTitle>
-        <CardDescription className="font-medium">{description}</CardDescription>
+        <CardDescription className="font-medium tracking-wider">{description}</CardDescription>
       </CardHeader>
     </Card>
   );
