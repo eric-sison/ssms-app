@@ -15,7 +15,7 @@ export const TicketStatusCard: FunctionComponent<TicketStatusCardProps> = ({
   icon,
 }) => {
   return (
-    <Card className="w-full bg-primary text-white dark:bg-secondary/40 shadow-xl shadow-gray-300/70 dark:shadow-none group">
+    <Card className="w-full dark:bg-secondary/40 group">
       <CardHeader>
         <section className="mb-4 flex items-center gap-4">
           {icon}
