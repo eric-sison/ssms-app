@@ -25,7 +25,7 @@ export const BreadCrumbs: FunctionComponent<BreadCrumbsProps> = ({ links }) => {
             href={link.path}
             className={`${
               pathName === link.path
-                ? "font-medium text-indigo-500 hover:text-indigo-400 hover:border-b-indigo-400"
+                ? "font-medium text-indigo-500 hover:text-indigo-600 hover:border-b-indigo-600 dark:hover:text-indigo-400 dark:hover:border-b-indigo-400"
                 : "hover:text-primary hover:border-b-muted-foreground"
             } border-b border-b-transparent`}
           >
