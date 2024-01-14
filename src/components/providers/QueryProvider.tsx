@@ -2,13 +2,9 @@
 
 import { FunctionComponent, ReactNode, Suspense, useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useDevToolStore } from "@/lib/devtoolStore";
+import { useDevToolStore } from "@/hooks/zustand/useDevtoolStore";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
-import {
-  type QueryClientProviderProps,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 
 const ReactQueryProductionDevTools = dynamic(() =>
   import("@tanstack/react-query-devtools/production").then((devTool) => ({
