@@ -3,7 +3,7 @@
 import { FunctionComponent } from "react";
 import { Button } from "../ui/Button";
 import { useTheme } from "next-themes";
-import { useDevToolStore } from "@/lib/devtoolStore";
+import { useDevToolStore } from "@/hooks/zustand/useDevtoolStore";
 
 export const SettingsDebug: FunctionComponent = () => {
   const { setTheme } = useTheme();
