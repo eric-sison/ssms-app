@@ -1,3 +1,5 @@
+import { AddCategoryModal } from "@/components/features/AddCategoryModal";
+import { CategoriesDataTable } from "@/components/features/CategoriesDataTable";
 import { PageBody } from "@/components/features/PageBody";
 import { PageHead } from "@/components/features/PageHead";
 import { BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
@@ -21,9 +23,15 @@ export default function Categories() {
         title="Categories"
         icon={<FolderSymlink />}
         subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-      />
+      >
+        <div className="flex items-center gap-2">
+          <AddCategoryModal />
+        </div>
+      </PageHead>
 
-      <PageBody>{/** Start of something new here... */}</PageBody>
+      <PageBody>
+        <CategoriesDataTable />
+      </PageBody>
     </>
   );
 }
