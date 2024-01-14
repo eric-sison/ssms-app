@@ -3,7 +3,6 @@
 import { FunctionComponent, useState } from "react";
 import { Modal } from "../ui/Modal";
 import { Button } from "../ui/Button";
-import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -17,6 +16,11 @@ import {
 } from "../ui/Form";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addSupportType } from "@/functions/http/support-types";
+import { toast } from "sonner";
+import * as z from "zod";
+import dayjs from "dayjs";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Support type's name is required!" }),
@@ -26,18 +30,44 @@ const formSchema = z.object({
 export const AddSupportTypeModal: FunctionComponent = () => {
   const [open, setOpen] = useState(false);
 
+  const queryClient = useQueryClient();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", description: "" },
   });
 
+  const closeModal = () => {
+    setOpen(false);
+    form.reset();
+  };
+
+  const mutation = useMutation({
+    mutationFn: addSupportType,
+    onError: (error) => console.log(error),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["support-types"] });
+      closeModal();
+    },
+    onSettled: (data) => {
+      toast("Support Type has been added", {
+        description: dayjs(data?.data.createdAt as Date).format("dddd, MMMM D, YYYY"),
+        position: "top-center",
+        action: {
+          label: "Okay",
+          onClick: () => toast.dismiss(),
+        },
+      });
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutation.mutate(values);
   };
 
   return (
     <>
-      <Button variant={"secondary"} onClick={() => setOpen(true)}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Add New
       </Button>
       <Modal
@@ -101,7 +131,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
             />
 
             <div className="flex justify-end items-center gap-3">
-              <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+              <Button type="button" variant="ghost" onClick={closeModal}>
                 Cancel
               </Button>
               <Button type="submit">Submit</Button>
