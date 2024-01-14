@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
+import { Toaster } from "@/components/ui/Sonner";
 import "../styles/tailwind.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps) {
         >
           <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
