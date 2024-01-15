@@ -17,11 +17,11 @@ import {
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addSupportType } from "@/functions/http/support-types";
 import { toast } from "sonner";
 import * as z from "zod";
-import dayjs from "dayjs";
 import { addCategory } from "@/functions/http/categories";
+import { AxiosError } from "axios";
+import type { ApiResponseError } from "@/types/ApiResponseError";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Category's name is required!" }),
@@ -45,19 +45,14 @@ export const AddCategoryModal: FunctionComponent = () => {
 
   const mutation = useMutation({
     mutationFn: addCategory,
-    onError: (error) => console.log(error),
+    onError: (error: AxiosError<ApiResponseError>) => {
+      toast.error(`${error.response?.data.message}`, { position: "top-center" });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       closeModal();
-    },
-    onSettled: (data) => {
-      toast("New category has been added", {
-        description: dayjs(data?.data.createdAt as Date).format("dddd, MMMM D, YYYY"),
+      toast.success("Successfully added new category", {
         position: "top-center",
-        action: {
-          label: "Okay",
-          onClick: () => toast.dismiss(),
-        },
       });
     },
   });
@@ -74,6 +69,7 @@ export const AddCategoryModal: FunctionComponent = () => {
       <Modal
         open={open}
         onOpenChange={setOpen}
+        onModalClose={closeModal}
         title="Add Category"
         description="This will add a new category"
       >

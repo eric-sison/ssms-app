@@ -20,7 +20,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addSupportType } from "@/functions/http/support-types";
 import { toast } from "sonner";
 import * as z from "zod";
-import dayjs from "dayjs";
+import { AxiosError } from "axios";
+import type { ApiResponseError } from "@/types/ApiResponseError";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Support type's name is required!" }),
@@ -44,19 +45,14 @@ export const AddSupportTypeModal: FunctionComponent = () => {
 
   const mutation = useMutation({
     mutationFn: addSupportType,
-    onError: (error) => console.log(error),
+    onError: (error: AxiosError<ApiResponseError>) => {
+      toast.error(`${error.response?.data.message}`, { position: "top-center" });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["support-types"] });
       closeModal();
-    },
-    onSettled: (data) => {
-      toast("Support Type has been added", {
-        description: dayjs(data?.data.createdAt as Date).format("dddd, MMMM D, YYYY"),
+      toast.success("Successfully added new support type", {
         position: "top-center",
-        action: {
-          label: "Okay",
-          onClick: () => toast.dismiss(),
-        },
       });
     },
   });
@@ -73,6 +69,7 @@ export const AddSupportTypeModal: FunctionComponent = () => {
       <Modal
         open={open}
         onOpenChange={setOpen}
+        onModalClose={closeModal}
         title="Add New"
         description="This will add a new support type"
       >
