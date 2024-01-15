@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps) {
         >
           <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
-        <Toaster />
+        <Toaster richColors closeButton />
       </body>
     </html>
   );
