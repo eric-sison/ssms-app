@@ -4,5 +4,5 @@ export type Category = {
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
 };

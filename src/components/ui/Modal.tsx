@@ -13,10 +13,12 @@ type ModalProps = {
   title: string;
   description?: string;
   children: ReactNode;
+  disableOutsideClick?: boolean;
 };
 
 export const Modal: FunctionComponent<ModalProps> = ({
   open,
+  disableOutsideClick = false,
   onOpenChange,
   title,
   description,
@@ -25,7 +27,11 @@ export const Modal: FunctionComponent<ModalProps> = ({
 }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" onClose={() => onOpenChange(false)} className="z-10 overflow-clip">
+      <Dialog
+        as="div"
+        onClose={() => (disableOutsideClick ? null : onOpenChange(false))}
+        className="z-10 overflow-clip"
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

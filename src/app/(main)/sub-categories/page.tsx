@@ -1,4 +1,7 @@
+import { AddSubCategoryModal } from "@/components/features/AddSubCategoryModal";
+import { PageBody } from "@/components/features/PageBody";
 import { PageHead } from "@/components/features/PageHead";
+import { SubCategoriesDataTable } from "@/components/features/SubCategoriesDataTable";
 import { BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { FileStack } from "lucide-react";
 import { Metadata } from "next";
@@ -20,7 +23,13 @@ export default function SubCategories() {
         title="Sub Categories"
         subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit."
         icon={<FileStack />}
-      />
+      >
+        <AddSubCategoryModal />
+      </PageHead>
+
+      <PageBody>
+        <SubCategoriesDataTable />
+      </PageBody>
     </>
   );
 }

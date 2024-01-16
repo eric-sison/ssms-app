@@ -1,4 +1,4 @@
-import type { Category } from "@/types/Categories";
+import type { Category } from "@/types/Category";
 import type { Paginated } from "@/types/Paginated";
 import axios from "axios";
 

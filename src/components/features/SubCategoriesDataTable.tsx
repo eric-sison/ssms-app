@@ -1,26 +1,32 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { FunctionComponent } from "react";
 import { DataTable } from "../ui/DataTable";
+import { getAllSubCategories } from "@/functions/http/sub-categories";
 import { ColumnDef } from "@tanstack/react-table";
-import type { Category } from "@/types/Category";
+import { FlattenedSubCategory } from "@/types/SubCategory";
 import { DataTableColumnHeader } from "../ui/DataTableHeader";
 import dayjs from "dayjs";
-import { useQuery } from "@tanstack/react-query";
-import { getAllCategories } from "@/functions/http/categories";
 
-const columns: ColumnDef<Category>[] = [
+const columns: ColumnDef<FlattenedSubCategory>[] = [
   {
     accessorKey: "name",
-    header: ({ column }) => <DataTableColumnHeader title={"Name"} column={column} />,
+    header: ({ column }) => <DataTableColumnHeader title="Name" column={column} />,
     cell: (info) => info.getValue(),
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "description",
-    header: ({ column }) => <DataTableColumnHeader title={"Description"} column={column} />,
+    header: ({ column }) => <DataTableColumnHeader title="Description" column={column} />,
     cell: (info) => info.getValue(),
     enableColumnFilter: false,
+  },
+  {
+    accessorKey: "category",
+    header: ({ column }) => <DataTableColumnHeader title="Category" column={column} />,
+    cell: (info) => info.getValue(),
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "updatedAt",
@@ -30,10 +36,10 @@ const columns: ColumnDef<Category>[] = [
   },
 ];
 
-export const CategoriesDataTable: FunctionComponent = () => {
+export const SubCategoriesDataTable: FunctionComponent = () => {
   const { data: result, isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getAllCategories,
+    queryKey: ["sub-categories"],
+    queryFn: () => getAllSubCategories({ flatten: true }),
   });
 
   if (isLoading) return <>Loading...</>;
