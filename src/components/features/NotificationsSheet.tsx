@@ -1,19 +1,7 @@
 "use client";
 
 import { FunctionComponent } from "react";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/Sheet";
-import { Label } from "../ui/Label";
-import { Button } from "../ui/Button";
-import { Input } from "../ui/Input";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/Sheet";
 
 type NotificationsSheetProps = {
   onModalOpen?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
