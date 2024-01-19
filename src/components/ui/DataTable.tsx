@@ -15,12 +15,12 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/Table";
 import { DataTablePagination } from "./DataTablePagination";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { Input } from "./Input";
 import { DataTableToolbar } from "./DataTableToolbar";
 
 type DataTableProps<T> = {
-  columns: Array<ColumnDef<T, any>>;
+  columns: Array<ColumnDef<T, unknown>>;
   data: T[];
   enableColumnVisibilityToggle?: boolean;
   enableGlobalFilter?: boolean;
