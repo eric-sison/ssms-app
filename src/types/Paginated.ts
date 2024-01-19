@@ -5,9 +5,9 @@ export type Paginated<T> = {
     totalItems: number;
     currentPage: number;
     totalPages: number;
-    sortBy?: Array<any>;
+    sortBy?: Array<string>;
     search?: string;
-    filter: any;
+    filter: unknown;
   };
   links: {
     first?: string;
