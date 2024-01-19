@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import { Modal } from "../ui/Modal";
 import { Button } from "../ui/Button";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,8 @@ import { toast } from "sonner";
 import * as z from "zod";
 import { AxiosError } from "axios";
 import type { ApiResponseError } from "@/types/ApiResponseError";
+import { SupportType } from "@/types/SupportType";
+import { TokenContext } from "../providers/TokenProvider";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Support type's name is required!" }),
@@ -30,6 +32,8 @@ const formSchema = z.object({
 
 export const AddSupportTypeModal: FunctionComponent = () => {
   const [open, setOpen] = useState(false);
+
+  const token = useContext(TokenContext);
 
   const queryClient = useQueryClient();
 
@@ -44,7 +48,8 @@ export const AddSupportTypeModal: FunctionComponent = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: addSupportType,
+    mutationFn: async (dto: Pick<SupportType, "name" | "description">) =>
+      await addSupportType(dto, token),
     onError: (error: AxiosError<ApiResponseError>) => {
       toast.error(`${error.response?.data.message}`, { position: "top-center" });
     },

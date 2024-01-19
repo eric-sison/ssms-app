@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { DataTable } from "../ui/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../ui/DataTableHeader";
@@ -8,6 +8,7 @@ import { SupportType } from "@/types/SupportType";
 import { useQuery } from "@tanstack/react-query";
 import { getAllSupportTypes } from "@/functions/http/support-types";
 import dayjs from "dayjs";
+import { TokenContext } from "../providers/TokenProvider";
 
 const columns: ColumnDef<SupportType>[] = [
   {
@@ -33,9 +34,11 @@ const columns: ColumnDef<SupportType>[] = [
 ];
 
 export const SupportTypesDataTable: FunctionComponent = () => {
+  const token = useContext(TokenContext);
+
   const { data: result, isLoading } = useQuery({
     queryKey: ["support-types"],
-    queryFn: getAllSupportTypes,
+    queryFn: async () => getAllSupportTypes(token),
   });
 
   if (isLoading) return <>Loading...</>;

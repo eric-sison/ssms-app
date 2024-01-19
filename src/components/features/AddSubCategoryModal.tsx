@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import { Modal } from "../ui/Modal";
 import { Button } from "../ui/Button";
 import { useForm } from "react-hook-form";
@@ -26,11 +26,11 @@ import { Textarea } from "../ui/Textarea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as z from "zod";
-import { addCategory, getAllCategories } from "@/functions/http/categories";
+import { getAllCategories } from "@/functions/http/categories";
 import { AxiosError } from "axios";
 import type { ApiResponseError } from "@/types/ApiResponseError";
-import Link from "next/link";
-import { addSubCategory } from "@/functions/http/sub-categories";
+import { CreateSubCategoryDto, addSubCategory } from "@/functions/http/sub-categories";
+import { TokenContext } from "../providers/TokenProvider";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Sub-category's name is required!" }),
@@ -40,6 +40,8 @@ const formSchema = z.object({
 
 export const AddSubCategoryModal: FunctionComponent = () => {
   const [open, setOpen] = useState(false);
+
+  const token = useContext(TokenContext);
 
   const queryClient = useQueryClient();
 
@@ -53,10 +55,13 @@ export const AddSubCategoryModal: FunctionComponent = () => {
     form.reset();
   };
 
-  const { data: result } = useQuery({ queryKey: ["categories"], queryFn: getAllCategories });
+  const { data: result } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => await getAllCategories(token),
+  });
 
   const mutation = useMutation({
-    mutationFn: addSubCategory,
+    mutationFn: async (dto: CreateSubCategoryDto) => await addSubCategory(dto, token),
     onError: (error: AxiosError<ApiResponseError>) => {
       toast.error(`${error.response?.data.message}`, { position: "top-center" });
     },

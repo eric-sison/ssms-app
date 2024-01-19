@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { DataTable } from "../ui/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import type { Category } from "@/types/Category";
@@ -8,6 +8,7 @@ import { DataTableColumnHeader } from "../ui/DataTableHeader";
 import dayjs from "dayjs";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCategories } from "@/functions/http/categories";
+import { TokenContext } from "../providers/TokenProvider";
 
 const columns: ColumnDef<Category>[] = [
   {
@@ -31,9 +32,11 @@ const columns: ColumnDef<Category>[] = [
 ];
 
 export const CategoriesDataTable: FunctionComponent = () => {
+  const token = useContext(TokenContext);
+
   const { data: result, isLoading } = useQuery({
     queryKey: ["categories"],
-    queryFn: getAllCategories,
+    queryFn: async () => await getAllCategories(token),
   });
 
   if (isLoading) return <>Loading...</>;

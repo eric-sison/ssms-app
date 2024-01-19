@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import { Modal } from "../ui/Modal";
 import { Button } from "../ui/Button";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,8 @@ import * as z from "zod";
 import { addCategory } from "@/functions/http/categories";
 import { AxiosError } from "axios";
 import type { ApiResponseError } from "@/types/ApiResponseError";
+import { TokenContext } from "../providers/TokenProvider";
+import { Category } from "@/types/Category";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Category's name is required!" }),
@@ -30,6 +32,8 @@ const formSchema = z.object({
 
 export const AddCategoryModal: FunctionComponent = () => {
   const [open, setOpen] = useState(false);
+
+  const token = useContext(TokenContext);
 
   const queryClient = useQueryClient();
 
@@ -44,7 +48,8 @@ export const AddCategoryModal: FunctionComponent = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: addCategory,
+    mutationFn: async (dto: Pick<Category, "name" | "description">) =>
+      await addCategory(dto, token),
     onError: (error: AxiosError<ApiResponseError>) => {
       toast.error(`${error.response?.data.message}`, { position: "top-center" });
     },

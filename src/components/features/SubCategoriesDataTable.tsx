@@ -1,13 +1,14 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { DataTable } from "../ui/DataTable";
 import { getAllSubCategories } from "@/functions/http/sub-categories";
 import { ColumnDef } from "@tanstack/react-table";
 import { FlattenedSubCategory } from "@/types/SubCategory";
 import { DataTableColumnHeader } from "../ui/DataTableHeader";
 import dayjs from "dayjs";
+import { TokenContext } from "../providers/TokenProvider";
 
 const columns: ColumnDef<FlattenedSubCategory>[] = [
   {
@@ -37,9 +38,11 @@ const columns: ColumnDef<FlattenedSubCategory>[] = [
 ];
 
 export const SubCategoriesDataTable: FunctionComponent = () => {
+  const token = useContext(TokenContext);
+
   const { data: result, isLoading } = useQuery({
     queryKey: ["sub-categories"],
-    queryFn: () => getAllSubCategories({ flatten: true }),
+    queryFn: () => getAllSubCategories({ flatten: true, token }),
   });
 
   if (isLoading) return <>Loading...</>;
