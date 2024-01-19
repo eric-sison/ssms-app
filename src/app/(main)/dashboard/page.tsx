@@ -1,7 +1,7 @@
 import { DatePickerWithRange } from "@/components/features/DatePicker";
 import { TicketStatusCard } from "@/components/features/TicketStatusCard";
 import { Button } from "@/components/ui/Button";
-import { BreadCrumbs, BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
+import { BreadCrumbsLink } from "@/components/ui/BreadCrumbs";
 import { Activity, Clock, FileCheck2, FilePieChart, FileX2 } from "lucide-react";
 import { Metadata } from "next";
 import { PageHead } from "@/components/features/PageHead";
@@ -16,7 +16,7 @@ const links: BreadCrumbsLink[] = [
   { path: "/dashboard", label: "Dashboard" },
 ];
 
-export default function Dashboard() {
+export default async function Dashboard() {
   return (
     <>
       <PageHead
