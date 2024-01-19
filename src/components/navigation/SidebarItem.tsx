@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { FunctionComponent, MouseEvent } from "react";
+import { FunctionComponent } from "react";
 import { usePathname } from "next/navigation";
-import { NotificationsSheet } from "../features/NotificationsSheet";
 
 type SidebarItemProps = {
   targetPath: string;
