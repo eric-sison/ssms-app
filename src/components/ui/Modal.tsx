@@ -9,7 +9,7 @@ import { Button } from "./Button";
 type ModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onModalClose?: Function;
+  onModalClose?: () => void;
   title: string;
   description?: string;
   children: ReactNode;
