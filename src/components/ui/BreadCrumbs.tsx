@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React, { FunctionComponent } from "react";
 import { Separator } from "./Separator";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export type BreadCrumbsLink = {
   path: string;
